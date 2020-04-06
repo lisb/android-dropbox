@@ -1,7 +1,6 @@
 package com.dropbox.chooser.android;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,7 +9,6 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -28,11 +26,10 @@ class AppStoreInterstitial {
     public static final String DIALOG_TAG = "com.dropbox.chooser.android.DIALOG";
     private static final String DROPBOX_PACKAGE_NAME = "com.dropbox.android";
 
-    @SuppressLint("NewApi") // lint isn't clever enough to figure out that we branched manually :(
     public static void showInterstitial(ActivityLike thing) {
         if (thing.getSupportFragmentManager() != null) {
             SupportFragment frag = SupportFragment.newInstance();
-            android.support.v4.app.FragmentManager fm = thing.getSupportFragmentManager();
+            androidx.fragment.app.FragmentManager fm = thing.getSupportFragmentManager();
             frag.show(fm, DIALOG_TAG);
         } else {
             NativeFragment frag = NativeFragment.newInstance();
@@ -41,7 +38,6 @@ class AppStoreInterstitial {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NativeFragment extends DialogFragment {
         public static NativeFragment newInstance() {
             return new NativeFragment();
@@ -81,7 +77,7 @@ class AppStoreInterstitial {
         }
     }
 
-    public static class SupportFragment extends android.support.v4.app.DialogFragment {
+    public static class SupportFragment extends androidx.fragment.app.DialogFragment {
         public static SupportFragment newInstance() {
             return new SupportFragment();
         }

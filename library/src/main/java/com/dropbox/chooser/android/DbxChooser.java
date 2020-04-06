@@ -1,11 +1,8 @@
 package com.dropbox.chooser.android;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -15,9 +12,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+
+import androidx.fragment.app.FragmentActivity;
 
 
 /**
@@ -167,9 +165,9 @@ public class DbxChooser {
             }
 
             @Override
-            public android.support.v4.app.FragmentManager getSupportFragmentManager() {
-                if (mAct instanceof android.support.v4.app.FragmentActivity) {
-                    return ((android.support.v4.app.FragmentActivity) mAct).getSupportFragmentManager();
+            public androidx.fragment.app.FragmentManager getSupportFragmentManager() {
+                if (mAct instanceof FragmentActivity) {
+                    return ((FragmentActivity) mAct).getSupportFragmentManager();
                 } else {
                     return null;
                 }
@@ -186,7 +184,6 @@ public class DbxChooser {
      * 
      * NOTE: this method requires Android API at least version 11.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void launch(Fragment frag, int requestCode) throws ActivityNotFoundException {
         final Fragment mFrag = frag;
         ActivityLike thing = new ActivityLike() {
@@ -231,7 +228,7 @@ public class DbxChooser {
             }
 
             @Override
-            public android.support.v4.app.FragmentManager getSupportFragmentManager() {
+            public androidx.fragment.app.FragmentManager getSupportFragmentManager() {
                 return null;
             }
         };
@@ -244,8 +241,8 @@ public class DbxChooser {
      * supplied Fragment. If the supplied Fragment is not attached to an Activity,
      * this will throw an IllegalStateException.
      */
-    public void launch(android.support.v4.app.Fragment frag, int requestCode) throws ActivityNotFoundException {
-        final android.support.v4.app.Fragment mFrag = frag;
+    public void launch(androidx.fragment.app.Fragment frag, int requestCode) throws ActivityNotFoundException {
+        final androidx.fragment.app.Fragment mFrag = frag;
         ActivityLike thing = new ActivityLike() {
 
             @Override
@@ -284,8 +281,8 @@ public class DbxChooser {
             }
 
             @Override
-            public android.support.v4.app.FragmentManager getSupportFragmentManager() {
-                android.support.v4.app.FragmentActivity act = mFrag.getActivity();
+            public androidx.fragment.app.FragmentManager getSupportFragmentManager() {
+                FragmentActivity act = mFrag.getActivity();
                 if (act == null) {
                     return null;
                 }

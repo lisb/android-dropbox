@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.dropbox.api.samples.chooser_start"
         minSdkVersion 14
-        targetSdkVersion 17
+        targetSdkVersion 29
     }
 
     buildTypes {
@@ -19,5 +19,6 @@ android {
 }
 
 dependencies {
-    compile project(':library')
+    implementation project(':library')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 }
