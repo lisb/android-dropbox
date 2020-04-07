@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 
     static final String APP_KEY = /* This is for you to fill in! */;
     static final int DBX_CHOOSER_REQUEST = 0;  // You can change this if needed
+    private static final String TAG = "MainActivity";
 
     private Button mChooserButton;
     private DbxChooser mChooser;
@@ -55,17 +56,23 @@ public class MainActivity extends Activity {
         if (requestCode == DBX_CHOOSER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 DbxChooser.Result result = new DbxChooser.Result(data);
-                Log.d("main", "Link to selected file: " + result.getLink());
-                
+
                 showLink(R.id.uri, result.getLink());
-                ((TextView) findViewById(R.id.filename)).setText(result.getName().toString(), TextView.BufferType.NORMAL);
+                ((TextView) findViewById(R.id.filename)).setText(result.getName(), TextView.BufferType.NORMAL);
                 ((TextView) findViewById(R.id.size)).setText(String.valueOf(result.getSize()), TextView.BufferType.NORMAL);
                 showLink(R.id.icon, result.getIcon());
 
                 Map<String, Uri> thumbs = result.getThumbnails();
-                showLink(R.id.thumb64, thumbs.get("64x64"));
-                showLink(R.id.thumb200, thumbs.get("200x200"));
-                showLink(R.id.thumb640, thumbs.get("640x480"));
+                Log.d(TAG, "Link to selected file: " + result.getLink() + ", thumbs is Null?:" + (thumbs == null));
+                if (thumbs != null) {
+                    showLink(R.id.thumb64, thumbs.get("64x64"));
+                    showLink(R.id.thumb200, thumbs.get("200x200"));
+                    showLink(R.id.thumb640, thumbs.get("640x480"));
+                } else {
+                    showLink(R.id.thumb64, null);
+                    showLink(R.id.thumb200, null);
+                    showLink(R.id.thumb640, null);
+                }
             } else {
                 // Failed or was cancelled by the user.
             }
