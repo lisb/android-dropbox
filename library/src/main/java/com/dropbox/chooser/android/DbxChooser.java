@@ -430,7 +430,11 @@ public class DbxChooser {
             if (results.length == 0) {
                 return null;
             }
-            return results[0].getParcelable("icon");
+            String iconText = results[0].getString("icon");
+            if (iconText == null) {
+                return null;
+            }
+            return Uri.parse(iconText);
         }
 
         /**
