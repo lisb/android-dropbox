@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+
 
 android {
     compileSdkVersion 29
@@ -19,4 +22,31 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
+}
+
+afterEvaluate {
+    def localProps = new Properties()
+    localProps.load(rootProject.file('local.properties').newDataInputStream())
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = "https://maven.pkg.github.com/lisb/android-dropbox"
+                credentials {
+                    username = localProps["gpr.user"] ?: System.getenv("GPR_USER")
+                    password = localProps["gpr.key"] ?: System.getenv("GPR_KEY")
+                }
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.dropbox.chooser.android'
+                artifactId = 'chooser'
+                version = '1.0.3-SNAPSHOT'
+            }
+        }
+    }
 }
