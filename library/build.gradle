@@ -24,6 +24,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 }
 
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.source
+}
+
 afterEvaluate {
     def localProps = new Properties()
     localProps.load(rootProject.file('local.properties').newDataInputStream())
@@ -42,7 +47,7 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-
+                artifact tasks.androidSourcesJar
                 groupId = 'com.dropbox.chooser.android'
                 artifactId = 'chooser'
                 version = '1.0.3-SNAPSHOT'
