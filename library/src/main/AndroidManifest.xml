@@ -2,4 +2,9 @@
     package="com.dropbox.chooser.android"
     android:versionCode="1"
     android:versionName="1.0" >
+
+    <queries>
+        <package android:name="com.dropbox.android" />
+    </queries>
+
 </manifest>
