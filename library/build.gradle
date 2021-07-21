@@ -50,7 +50,7 @@ afterEvaluate {
                 artifact tasks.androidSourcesJar
                 groupId = 'com.dropbox.chooser.android'
                 artifactId = 'chooser'
-                version = '1.2.0-SNAPSHOT'
+                version = '1.2.0'
             }
         }
     }
